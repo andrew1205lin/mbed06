@@ -4,6 +4,8 @@
 
 #include "fsl_gpio.h"
 
+#include "uLCD_4DGL.h" //add for uLCD
+
 #define UINT14_MAX        16383
 
 // FXOS8700CQ I2C address
@@ -48,6 +50,8 @@
 I2C i2c( PTD9,PTD8);
 
 Serial pc(USBTX, USBRX);
+
+uLCD_4DGL uLCD(D1, D0, D2); //add for uLCD
 
 int m_addr = FXOS8700CQ_SLAVE_ADDR1;
 
@@ -132,6 +136,16 @@ int main() {
 
       );
 
+      uLCD.locate(0, 0); //add for uLCD
+      uLCD.printf("FXOS8700Q ACC: X=%1.4f(%x%x) Y=%1.4f(%x%x) Z=%1.4f(%x%x)\r\n",\ 
+
+            t[0], res[0], res[1],\
+
+            t[1], res[2], res[3],\
+
+            t[2], res[4], res[5]\
+
+      ); //add for uLCD
 
       wait(1.0);
 
